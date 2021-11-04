@@ -4,7 +4,7 @@
  * @Author: GuoYaBing
  * @Date: 2021-09-27 13:33:15
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-10-25 17:06:01
+ * @LastEditTime: 2021-11-03 14:02:53
 -->
 <template>
   <div class="echarts-common">
@@ -151,10 +151,33 @@ import { onMounted, reactive, toRefs, ref, nextTick } from "vue";
 import { postTypeList} from "../../api/index";
 import CountTo from "../../components/vue-count-to/vue-countTo.vue";
 export default {
+  
   setup() {
-    
-     const drawLine = () => {
-       var myChart1 = echarts.init(document.getElementById("myChart1"));
+    onMounted(async () => {
+      const { data, status } = await postTypeList();
+      if (status == 200) {
+        state.navData = data.data;
+        state.myChartSeries1 = data.Echarts1;
+        state.myChartSeries2 = data.Echarts2;
+        state.myChartSeries3 = data.Echarts3;
+        state.myChartSeries4 = data.Echarts4;
+        state.progress=data.progress;
+        state.myChartSeries1.forEach((item) => {
+          var array = [];
+          item.data.forEach((el) => {
+            array.push(parseInt(el.number));
+          });
+          return (item.data = array);
+        });
+        console.log(data, "数据");
+        state.loading = false;
+        nextTick(() => {
+          drawLine();
+        });
+      }
+    });
+     const drawLine = () => {   
+      var myChart1 = echarts.init(document.getElementById("myChart1"));
       var myChart2 = echarts.init(document.getElementById("myChart2"));
       var myChart3 = echarts.init(document.getElementById("myChart3"));
       var myChart4 = echarts.init(document.getElementById("myChart4"));
@@ -255,40 +278,19 @@ export default {
         ],
         series:state.myChartSeries4.series
       });
-
-    };
-        window.onresize = function () {
+       
+       
+       
+       window.onresize = function () {
       // 自适应大小
-      // myChart1.resize();
-      // myChart2.resize();
-      // myChart3.resize();
-      // myChart4.resize();
+      myChart1.resize();
+      myChart2.resize();
+      myChart3.resize();
+      myChart4.resize();
     };
-     
-    onMounted(async () => {
-      const { data, status } = await postTypeList();
-      if (status == 200) {
-        state.navData = data.data;
-        state.myChartSeries1 = data.Echarts1;
-        state.myChartSeries2 = data.Echarts2;
-        state.myChartSeries3 = data.Echarts3;
-        state.myChartSeries4 = data.Echarts4;
-        state.progress=data.progress;
-        state.myChartSeries1.forEach((item) => {
-          var array = [];
-          item.data.forEach((el) => {
-            array.push(parseInt(el.number));
-          });
-          return (item.data = array);
-        });
-        console.log(data, "数据");
 
-        state.loading = false;
-        nextTick(() => {
-          drawLine();
-        });
-      }
-    });
+    };
+      
   
     const activeNames = ref(["1"]);
     const handleChange = (val) => {
@@ -308,7 +310,6 @@ export default {
       ...toRefs(state),
       activeNames,
       handleChange,
-      drawLine,
     };
   },
   components: {
@@ -370,6 +371,7 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  padding-bottom: 100px;
 }
 .row7 {
   width: 64%;

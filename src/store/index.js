@@ -1,11 +1,37 @@
-import {createStore} from 'vuex'
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: GuoYaBing
+ * @Date: 2021-10-27 10:28:13
+ * @LastEditors: GuoYaBing
+ * @LastEditTime: 2021-11-01 15:27:46
+ */
+import { createStore } from 'vuex'
 
 export default createStore({
     state: {
         tagsList: [],
-        collapse: false
+        collapse: false,
+        token: '',
+        checked:false,
+
     },
     mutations: {
+        // 存储token
+        set_token(state, token) {
+            state.token = token
+            sessionStorage.token = token
+        },
+        // 删除token
+        del_token(state) {
+            state.token = ''
+            sessionStorage.removeItem('token')
+        },
+        // 是否记住记住密码
+        setChecked(state,data){
+            state.checked=data;
+            sessionStorage.checked = data;
+        },
         delTagsItem(state, data) {
             state
                 .tagsList

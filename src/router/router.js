@@ -4,11 +4,10 @@
  * @Author: GuoYaBing
  * @Date: 2021-09-24 10:20:17
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-10-25 17:04:57
+ * @LastEditTime: 2021-11-03 14:24:31
  */
 import {createRouter, createWebHashHistory} from "vue-router";
-import Home from "../views/home/index.vue";
-
+import Home from "/@/views/home/index.vue";
 const routes = [
     {
         path: '/',
@@ -25,7 +24,7 @@ const routes = [
                 meta: {
                     title: '工作台'
                 },
-                component: () => import ("../views/dashboard/index.vue")
+                component: () => import ("/@/views/dashboard/index.vue")
             }, 
             {
                 path: '/clipboard',
@@ -33,7 +32,7 @@ const routes = [
                 meta: {
                     title: '粘贴板'
                 },
-                component: () => import ('../views/component/clipboard/index.vue')
+                component: () => import ('/@/views/component/clipboard/index.vue')
             },
             {
                 path: '/backtop',
@@ -41,7 +40,7 @@ const routes = [
                 meta: {
                     title: '表格'
                 },
-                component: () => import ('../views/component/Backtop/index.vue')
+                component: () => import ('/@/views/component/Backtop/index.vue')
             },
             {
               path: '/wangeditor',
@@ -49,15 +48,23 @@ const routes = [
               meta: {
                   title: '富文本编辑器'
               },
-              component: () => import ('../views/component/wangeditor/index.vue')
+              component: () => import ('/@/views/component/wangeditor/index.vue')
           },
+          {
+            path: '/user',
+            name: 'user',
+            meta: {
+                title: 'websoket聊天室'
+            },
+            component: () => import ('/@/views/component/user/index.vue')
+        },
           {
             path: '/test',
             name: 'test',
             meta: {
                 title: '测试页'
             },
-            component: () => import ('../views/dashboard/echarts/test.vue')
+            component: () => import ('/@/views/dashboard/echarts/test.vue')
         },
         ]
     }, {
@@ -66,7 +73,7 @@ const routes = [
         meta: {
             title: '登录'
         },
-        component: () => import ("../views/login/index.vue")
+        component: () => import ("/@/views/login/index.vue")
     }
 ];
 
@@ -75,19 +82,15 @@ const router = createRouter({
     routes
 });
 
-// router.beforeEach((to, from, next) => {
-//     document.title = `${to.meta.title} | vue-manage-system`;
-//     const role = localStorage.getItem('ms_username');
-//     if (!role && to.path !== '/login') {
-//         next('/login');
-//     } else if (to.meta.permission) {
-//         // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
-//         role === 'admin'
-//             ? next()
-//             : next('/403');
-//     } else {
-//         next();
-//     }
-// });
+router.beforeEach((to, from, next) => {
+    document.title = `${to.meta.title} | vue-manage-system`;
+    var token=sessionStorage.getItem('token');
+    if (!token && to.path !== '/login') {
+        next('/login');
+    } 
+     else {
+        next();
+    }
+});
 
 export default router;

@@ -4,28 +4,29 @@
  * @Author: GuoYaBing
  * @Date: 2021-09-24 10:00:17
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-10-21 17:56:21
+ * @LastEditTime: 2021-11-04 10:41:35
  */
 /* jshint esversion: 6 */
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 import '../node_modules/element-plus/dist/index.css';
-import './style/index.css';
-import store from './store/index';
-import router from "./router/router";// 引入router
-import App from './App.vue';
+import '/@/style/index.css';
+import store from '/@/store/index';
+import router from "/@/router/router";// 引入router
+import '/@/mock/index.js';//mock数据
+import App from '/@/App.vue';
 import * as echarts from 'echarts';
 //顶部页面加载条
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+
 const app = createApp(App);
 app.user=echarts;
 app.use(ElementPlus);
 app.use(router);
 app.use(store);
-
 app.mount('#app');
-import './mock/index.js';
+
 NProgress.configure({
     easing: 'ease',
     speed: 500,

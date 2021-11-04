@@ -2,40 +2,39 @@
   <div class="login">
     <main class="container-box">
       <div class="left item ib"></div>
-      <div class="right item ib">
+      <div class="rights item ib">
         <el-form
           class="demo-ruleForm"
           label-position="top"
           label-width="100px"
           ref="ruleForm"
-          :model="ruleForm"
+          :model="ruleForms"
           :rules="rules"
         >
           <el-form-item label="用户名" prop="account">
             <el-input
               autocomplete="off"
-              placeholder="用户名admin"
+              placeholder="admin"
               clearable
-              v-model="ruleForm.account"
+              v-model="ruleForms.account"
             ></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input
               autocomplete="off"
-              placeholder="密码123456"
+              placeholder="123456"
               type="password"
               clearable
-              v-model="ruleForm.password"
+              v-model="ruleForms.password"
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-checkbox v-model="checked">记住密码</el-checkbox>
+            <el-checkbox v-model="checked" @change="changeChecked">记住密码</el-checkbox>
           </el-form-item>
           <el-form-item>
             <el-button
               type="primary"
               @click="loginHandle('ruleForm')"
-              :loading="loading"
               round
               class="login-btn"
               ><span class="login-world">登录</span></el-button
@@ -47,35 +46,76 @@
   </div>
 </template>
 <script>
-import { ref } from "vue";
+import { ref, reactive, toRefs,computed} from "vue";
 import { useRouter } from "vue-router";
-import {getLogin } from "../../api/index";
+import { getLogin } from "../../api/index";
+import { ElNotification } from "element-plus";
+import { useStore } from "vuex";
 export default {
-  data() {
-    return {
-      ruleForm: {
+  setup() {
+    const checked = ref(false);
+    const state = reactive({
+      ruleForms: {
         account: "",
         password: "",
       },
-    };
-  },
-  setup() {
-    const checked = ref(true);
+    });
+    const store = useStore(); // vue3中无法使用this 所以需要定义store
     const router = useRouter();
     const rules = {
       account: [{ required: true, message: "请输入用户名" }],
       password: [{ required: true, message: "请输入密码" }],
     };
+    const ruleForm = ref(null);
+    const changeChecked =(val)=>{
+      store.commit("setChecked",val);
+    }
+    // const newChecked =sessionStorage.getItem('checked');
+    // console.log(newChecked)
+    // if(newChecked){
+    //   checked.value=true;
+    // }else{
+    //   checked.value=false;
+
+    // }
     const loginHandle = async () => {
-      const {data} = await getLogin();
-      console.log(data);
-      
-      // router.push("/dashboard");
+      ruleForm.value.validate(async (valid) => {
+        if (valid) {
+          const { data } = await getLogin(state.ruleForms);
+          if (data.code == 200) {
+            console.log(data);
+            //根据store中set_token方法将token保存至localStorage/sessionStorage中
+            store.commit("set_token", data.token);
+            sessionStorage.setItem("token", data.token);
+            if (store.state.token) {
+              router.push("/");
+            } else {
+              router.replace("/login");
+            }
+          } else {
+            ElNotification({
+              title: "提示",
+              message: data.msg,
+              type: "error",
+            });
+          }
+        } else {
+          ElNotification({
+            title: "提示",
+            message: "账号密码不能为空！",
+            type: "info",
+          });
+          return false;
+        }
+      });
     };
     return {
       rules,
       checked,
+      ruleForm,
       loginHandle,
+      changeChecked,
+      ...toRefs(state),
     };
   },
 };
@@ -110,7 +150,7 @@ export default {
   background-size: 100% 100%;
   width: 700px !important;
 }
-.right {
+.rights {
   background-color: #fff;
   padding: 154px 64px 120px 90px;
 }

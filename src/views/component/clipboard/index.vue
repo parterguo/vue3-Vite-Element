@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: GuoYaBing
+ * @Date: 2021-10-27 10:28:13
+ * @LastEditors: GuoYaBing
+ * @LastEditTime: 2021-11-01 15:58:46
+-->
 <template >
   <div>
     <div class="container">
@@ -41,7 +49,7 @@ export default {
 </script>
 <style scoped>
 .container {
-  width: 100%;
+  /* width: 100%; */
   height: 80vh;
   word-wrap: normal;
   word-break: break-all;

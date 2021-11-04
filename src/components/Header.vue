@@ -11,7 +11,7 @@
           
                 <div class="btn-bell">
                     <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
-                        <router-link to="">
+                        <router-link to="/user">
                             <i class="el-icon-bell"  style="color:black"></i>
                         </router-link>
                     </el-tooltip>
@@ -29,7 +29,7 @@
                 </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
+                            <a href="https://github.com/parterguo/vue3-Vite-Element" target="_blank">
                                 <el-dropdown-item>项目仓库</el-dropdown-item>
                             </a>
                             <el-dropdown-item command="user">个人中心</el-dropdown-item>
@@ -49,7 +49,11 @@ export default {
     setup() {
         const username = localStorage.getItem("ms_username");
         const message = 2;
-
+        const getSrc = (name) => {
+            const path = `/static/icon/${name}.svg`;
+            const modules = import.meta.globEager("/static/icon/*.svg");
+            return modules[path].default;
+        };
         const store = useStore();
         const collapse = computed(() => store.state.collapse);
         // 侧边栏折叠
@@ -66,9 +70,11 @@ export default {
         // 用户名下拉菜单选择事件
         const router = useRouter();
         const handleCommand = (command) => {
+            console.log(command)
             if (command == "loginout") {
-                localStorage.removeItem("ms_username");
+               store.commit("del_token",'');
                 router.push("/login");
+                
             } else if (command == "user") {
                 router.push("/user");
             }

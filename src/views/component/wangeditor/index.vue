@@ -4,12 +4,14 @@
  * @Author: GuoYaBing
  * @Date: 2021-10-25 10:09:36
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-10-25 14:46:59
+ * @LastEditTime: 2021-10-29 10:17:36
 -->
 <template>
+    <div>
     <div ref='editor' class="editor"></div>
     <el-button type="success" @click='syncHTML' style="margin:10px 0px;">同步内容</el-button>
     <div :innerHTML='content.html'></div>
+    </div>
 </template>
 
 <script>
@@ -60,7 +62,5 @@ export default {
 .w-e-toolbar{
   z-index: 0 !important;
 }
-.editor{
-  /* margin-top: 50px; */
-}
+
 </style>

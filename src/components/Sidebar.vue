@@ -1,6 +1,6 @@
 <template>
+<div>
   <div class="sidebar">
-
     <el-menu
       class="sidebar-el-menu"
       :default-active="onRoutes"
@@ -56,6 +56,7 @@
       </template>
     </el-menu>
   </div>
+  </div>
 </template>
 
 <script>
@@ -80,11 +81,11 @@ export default {
           {index:"/wangeditor",title:'富文本编辑器'},
         ],
       },
-      {
-        icon: "el-icon-document",
-        index: "/404",
-        title: "404页面",
-      },
+      // {
+      //   icon: "el-icon-document",
+      //   index: "/404",
+      //   title: "404页面",
+      // },
     ];
 
     const route = useRoute();
