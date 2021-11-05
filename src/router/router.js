@@ -4,7 +4,7 @@
  * @Author: GuoYaBing
  * @Date: 2021-09-24 10:20:17
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-11-03 14:24:31
+ * @LastEditTime: 2021-11-04 11:27:17
  */
 import {createRouter, createWebHashHistory} from "vue-router";
 import Home from "/@/views/home/index.vue";
