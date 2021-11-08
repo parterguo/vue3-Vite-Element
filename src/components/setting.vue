@@ -4,7 +4,7 @@
  * @Author: GuoYaBing
  * @Date: 2021-10-09 17:45:19
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-10-25 15:14:43
+ * @LastEditTime: 2021-11-08 11:39:02
 -->
 <template>
   <div>
@@ -93,7 +93,7 @@ export default defineComponent({
   -webkit-box-shadow: -2px 0 8px rgb(0 0 0 / 15%);
   box-shadow: -2px 0 8px rgb(0 0 0 / 15%);
   cursor: pointer;
-  z-index: 1000;
+  z-index: 999;
 }
 .setting i {
   width: 40px;
