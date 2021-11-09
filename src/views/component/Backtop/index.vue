@@ -4,7 +4,7 @@
  * @Author: GuoYaBing
  * @Date: 2021-10-22 13:41:43
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-11-04 18:32:54
+ * @LastEditTime: 2021-11-09 14:00:14
 -->
 <template>
   <div>
@@ -36,15 +36,28 @@
           <el-input v-model="search" size="mini" placeholder="请输入姓名查询" />
         </template>
         <template #default="scope" width="200">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row,'查看')"
+          <el-button
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row, '查看')"
             >查看</el-button
           >
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row,'编辑')"
+          <el-button
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row, '编辑')"
             >编辑</el-button
           >
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row,'删除')"
-            >删除</el-button
+          <el-popconfirm
+            confirm-button-text="确认"
+            cancel-button-text="取消"
+            icon-color="red"
+            title="确认是否删除当前数据?"
+            @confirm="confirmEvent(scope.$index)"
           >
+            <template #reference>
+              <el-button size="mini">删除</el-button>
+            </template>
+          </el-popconfirm>
+        
         </template>
       </el-table-column>
     </el-table>
@@ -57,7 +70,12 @@
       ></el-pagination>
     </div>
     <!-- 弹窗组件 -->
-    <MyDialog v-if="MyDialogIsShow"   ref="MyDialogIsShow" @colseDialog="colseDialog"  :MyDialogData='MyDialogData'></MyDialog>
+    <MyDialog
+      v-if="MyDialogIsShow"
+      ref="MyDialogIsShow"
+      @colseDialog="colseDialog"
+      :MyDialogData="MyDialogData"
+    ></MyDialog>
   </div>
 </template>
 <script>
@@ -66,13 +84,13 @@ import { postBacktopList } from "/@/api/index";
 import MyDialog from "./Dialog/index.vue";
 export default {
   components: {
-    MyDialog
+    MyDialog,
   },
   setup() {
     onMounted(async () => {
       getDataList();
     });
-    const MyDialogIsShow= ref(false);
+    const MyDialogIsShow = ref(false);
     const state = reactive({
       dataList: [],
       search: "",
@@ -80,12 +98,11 @@ export default {
         pageIndex: 1,
         pageSize: 10,
       },
-      MyDialogData:{
-      title:'',
-      rowdata:{},
+      MyDialogData: {
+        title: "",
+        rowdata: {},
       },
       total: 0,
-
     });
     // 列表接口请求
     const getDataList = async () => {
@@ -110,19 +127,23 @@ export default {
     };
     rowClass();
     headClass();
-    // 查看，编辑，删除
-    const  handleEdit=((index,row,title)=>{
-     state.MyDialogData.title=title;   
-     state.MyDialogData.rowdata=row;   
-     
-      console.log(index,row,'当前元素值');
-      MyDialogIsShow.value=true;
-    })
+    // 查看，编辑
+    const handleEdit = (index, row, title) => {
+      state.MyDialogData.title = title;
+      state.MyDialogData.rowdata = row;
+
+      console.log(index, row, "当前元素值");
+      MyDialogIsShow.value = true;
+    };
+    // 删除
+    const confirmEvent= (index) =>{
+    state.dataList.splice(index,1);
+    }
     // 关闭弹窗
-    const colseDialog =(()=>{
-       MyDialogIsShow.value=false;
-    })
-  
+    const colseDialog = () => {
+      MyDialogIsShow.value = false;
+    };
+
     return {
       ...toRefs(state),
       getDataList,
@@ -132,6 +153,7 @@ export default {
       colseDialog,
       current_change,
       handleEdit,
+      confirmEvent
     };
   },
 };
