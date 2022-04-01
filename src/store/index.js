@@ -4,7 +4,7 @@
  * @Author: GuoYaBing
  * @Date: 2021-10-27 10:28:13
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-11-01 15:27:46
+ * @LastEditTime: 2022-01-04 16:46:08
  */
 import { createStore } from 'vuex'
 
@@ -14,9 +14,20 @@ export default createStore({
         collapse: false,
         token: '',
         checked:false,
+        AllColor:'#324157',
+        isTags:true
 
     },
     mutations: {
+        // 设置全局背主题颜色
+        set_color(state,color){
+            state.AllColor=color
+        },
+        // 是否显示Tags
+        set_Tags(state,val){
+          state.isTags=val
+          console.log("tags",state.isTags)
+        },
         // 存储token
         set_token(state, token) {
             state.token = token

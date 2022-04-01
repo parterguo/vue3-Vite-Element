@@ -4,25 +4,80 @@
  * @Author: GuoYaBing
  * @Date: 2021-10-14 10:45:41
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-10-18 10:08:48
+ * @LastEditTime: 2022-03-29 16:41:55
 -->
 <template>
-    <div>
-         <el-card shadow="hover">
-          <div id="myChart1" :style="{ width: '100%', height: '500px' }"></div>
-        </el-card>
-    </div>
+  <div>
+    <el-card shadow="hover">
+      <div id="myChart1" :style="{ width: '100%', height: '500px' }"></div>
+    </el-card>
+    <el-checkbox-group v-model="listKeyData">
+      <el-checkbox
+        v-for="(item, index) in listdata"
+        :key="index"
+        :label="item"
+        :value="item.id"
+        @change="handleChange(item)"
+        >{{ item.name }}</el-checkbox
+      >
+    </el-checkbox-group>
+  </div>
+  <el-button @click.once="oncClick">只能点击一次</el-button>
+  <!-- 有且只有 Ctrl 被按下的时候才触发 -->
+  <el-button @click.ctrl.exact="onCtrlClick">Ctrl+点击触发</el-button>
+  <el-button @click="show = !show"> Toggle </el-button>
+  <!-- 过渡动画 -->
+  <transition name="fade">
+    <p v-if="show">hello</p>
+  </transition>
+  user：{{ twiceTheCounter }}
 </template>
 <script>
 import * as echarts from "echarts";
-import { onMounted, reactive, toRefs } from "vue";
+import { onMounted, reactive, toRefs, watch,computed } from "vue";
 
-export default{
- setup(){
-     let data = reactive({
+export default {
+  setup() {
+    let data = reactive({
       dayTime: null,
       loading: null,
+      statusName: "",
+      show: false,
+      cheobj: {},
+      listKeyData: [],
+      count: 0,
+      listdata: [
+        {
+          id: "23321",
+          name: "dadas3",
+        },
+        {
+          id: "23321",
+          name: "dadas2",
+        },
+        {
+          id: "23321",
+          name: "dadas1",
+        },
+      ],
     });
+    const twiceTheCounter = computed(() => data.count*2)
+     data.count++;
+    console.log('computed计算属性',twiceTheCounter.value)
+
+    const handleChange = () => {
+      console.log(data.listKeyData);
+    };
+    // 点击事件只执行一次
+    const oncClick = () => {
+      alert("执行点击事件");
+    };
+
+    //  按Ctrl触发
+    const onCtrlClick = () => {
+      alert("触发了Ctrl");
+    };
+
     onMounted(() => {
       // 太极八卦
       let myChart = echarts.init(document.getElementById("myChart1"));
@@ -502,8 +557,34 @@ export default{
 
     return {
       ...toRefs(data),
+      handleChange,
+      oncClick,
+      onCtrlClick,
+      twiceTheCounter
     };
- }
-   
-}
+  },
+};
 </script>
+<style scoped>
+.box {
+  width: 600px;
+  height: 500px;
+  border: solid 1px;
+}
+.box div:nth-child(1) {
+  border: solid 1px green;
+}
+.box div:nth-child(2) {
+  height: 100px;
+  border: solid 1px red;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

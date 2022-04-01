@@ -4,11 +4,11 @@
  * @Author: GuoYaBing
  * @Date: 2021-10-09 17:45:19
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-11-08 11:39:02
+ * @LastEditTime: 2022-01-04 16:58:40
 -->
 <template>
   <div>
-    <div class="setting" @click="drawer = true">
+    <div class="setting"  :style="{'background':(colorValue==''?'#13c2c2':colorValue)}" @click="drawer = true">
       <i class="anticon anticon-setting"
         ><svg
           viewBox="64 64 896 896"
@@ -41,38 +41,64 @@
           status-icon
           class="demo-ruleForm"
         >
-          <el-form-item label="主题色" >
-           <el-config-provider :locale="locale2">
-          <el-color-picker :model-value="''" style="vertical-align: middle" />
-        </el-config-provider>
+          <el-form-item label="主题色">
+             <el-color-picker v-model="colorValue" show-alpha :predefine="predefineColors"  @change="changeColor"/>
           </el-form-item>
 
-          <el-form-item label="显示Tags" prop="checkPass">
-           <el-switch v-model="value1" />
+          <el-form-item label="显示Tags" >
+            <el-switch v-model="tagsShow"  @change="switchShow" />
           </el-form-item>
-
         </el-form>
       </div>
     </el-drawer>
   </div>
 </template>
 <script>
-import { defineComponent, ref ,reactive} from "vue";
-
+import { defineComponent, ref, reactive,computed, setDevtoolsHook } from "vue";
+import { useStore} from 'vuex';
 export default defineComponent({
   setup() {
     const drawer = ref(false);
-    const state =reactive({
-      ruleForm:{},
-      value1:true,
-    });
+    const tagsShow= ref(true);
+    const state = reactive({
+      ruleForm: {},
+      colorValue:'',
+      predefineColors:[
+        '#ff4500',
+        '#ff8c00',
+        '#ffd700',
+        '#90ee90',
+        '#00ced1',
+        '#1e90ff',
+        '#c71585',
+        'rgba(255, 69, 0, 0.68)',
+        'rgb(255, 120, 0)',
+        'hsv(51, 100, 98)',
+        'hsva(120, 40, 94, 0.5)',
+        'hsl(181, 100%, 37%)',
+        'hsla(209, 100%, 56%, 0.73)',
+        '#c7158577',
+   ]
+    })
+    let store= useStore();
+     // 设置背景颜色
+    const changeColor =((val)=>{   
+      state.colorValue=val;
+      store.commit('set_color',val)
+    })
     const handleClose = () => {
       drawer.value = false;
     };
+    const switchShow=((val)=>{
+     store.commit('set_Tags',val)
+    })
     return {
       drawer,
+      tagsShow,
       handleClose,
-      ...state
+      changeColor,
+      switchShow,
+      ...state,
     };
   },
 });

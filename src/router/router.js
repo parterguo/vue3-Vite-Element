@@ -4,7 +4,7 @@
  * @Author: GuoYaBing
  * @Date: 2021-09-24 10:20:17
  * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-11-04 11:27:17
+ * @LastEditTime: 2022-03-29 17:48:14
  */
 import {createRouter, createWebHashHistory} from "vue-router";
 import Home from "/@/views/home/index.vue";
@@ -62,9 +62,17 @@ const routes = [
             path: '/test',
             name: 'test',
             meta: {
-                title: '测试页'
+                title: 'vue3学习'
             },
-            component: () => import ('/@/views/dashboard/echarts/test.vue')
+            component: () => import ('/@/views/component/test/setup.vue')
+        },
+        {
+            path: '/echarts',
+            name: 'echarts',
+            meta: {
+                title: '八卦图表'
+            },
+            component: () => import ('/@/views/dshboard/dashboard/echarts/test.vue')
         },
         ]
     }, {

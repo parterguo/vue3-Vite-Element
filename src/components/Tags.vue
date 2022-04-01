@@ -37,9 +37,9 @@ export default {
             return path === route.fullPath;
         };
         const store = useStore();
+         const isTags = computed(() => store.state.isTags);
         const tagsList = computed(() => store.state.tagsList);
         const showTags = computed(() => tagsList.value.length > 0);
-
         // 关闭单个标签
         const closeTags = (index) => {
             const delItem = tagsList.value[index];
@@ -103,6 +103,7 @@ export default {
             showTags,
             closeTags,
             handleTags,
+            isTags
         };
     },
 };

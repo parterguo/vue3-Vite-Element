@@ -5,16 +5,16 @@
       class="sidebar-el-menu"
       :default-active="onRoutes"
       :collapse="collapse"
-      background-color="#324157"
-      text-color="#bfcbd9"
-      active-text-color="#20a0ff"
+      :background-color="AllColor"
+      text-color="#fff"
+      active-text-color="#fff"
       unique-opened
       router
     >
       <div class="sidebar-title">
         <img src="../assets/yanhua.png" alt="">
       </div>
-      <template v-for="item in items">
+      <template v-for="item in items" >
         <template v-if="item.subs">
           <el-sub-menu :index="item.index" :key="item.index">
             <template #title>
@@ -97,6 +97,7 @@ export default {
     const store = useStore();
 
     const collapse = computed(() => store.state.collapse);
+    const  AllColor= computed(()=>store.state.AllColor);
     // 侧边栏折叠
     const collapseChage = () => {
       store.commit("handleCollapse", !collapse.value);
@@ -106,6 +107,7 @@ export default {
       onRoutes,
       collapseChage,
       collapse,
+      AllColor,
     };
   },
 };
@@ -125,7 +127,9 @@ export default {
 }
 .sidebar-el-menu:not(.el-menu--collapse) {
   width: 250px;
-
+}
+.el-menu--collapse{
+  width: 66px !important;
 }
 .sidebar > ul {
   height: 100%;

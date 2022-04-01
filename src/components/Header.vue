@@ -1,5 +1,5 @@
 <template>
-    <div class="header">
+    <div class="header" :style="{'background':(AllColor=='#324157'?'fff':AllColor)}">
         <!-- 折叠按钮 -->
         <div class="collapse-btn" @click="collapseChage">
             <i v-if="!collapse" class="el-icon-s-fold"></i>
@@ -56,6 +56,7 @@ export default {
         };
         const store = useStore();
         const collapse = computed(() => store.state.collapse);
+        const AllColor=computed(()=>store.state.AllColor);
         // 侧边栏折叠
         const collapseChage = () => {
             store.commit("handleCollapse", !collapse.value);
@@ -86,6 +87,7 @@ export default {
             collapse,
             collapseChage,
             handleCommand,
+            AllColor,
         };
     },
 };
