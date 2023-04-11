@@ -3,8 +3,8 @@
  * @version: 
  * @Author: GuoYaBing
  * @Date: 2021-10-27 10:28:13
- * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-12-29 15:00:12
+ * @LastEditors: YaBing
+ * @LastEditTime: 2023-04-11 17:20:59
  */
 /*
  * @Descripttion: 
@@ -17,10 +17,10 @@
 /* jshint esversion: 6 */
 
 import Mock from 'mockjs';
-import ganfan from "/@assets/ganfan.png";
-import heshui from "/@assets/heshui.png";
-import ditie from "/@assets/ditie.png";
-import gongzuo from "/@assets/gongzuo.png";
+import ganfan from "/@/assets/ganfan.png";
+import heshui from "/@/assets/heshui.png";
+import ditie from "/@/assets/ditie.png";
+import gongzuo from "/@/assets/gongzuo.png";
 Mock.mock('/home/list', {
     status: 200,
     meg: '获取数据成功',

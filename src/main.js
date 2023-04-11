@@ -3,8 +3,8 @@
  * @version: 
  * @Author: GuoYaBing
  * @Date: 2021-09-24 10:00:17
- * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-11-04 10:41:35
+ * @LastEditors: YaBing
+ * @LastEditTime: 2023-04-10 16:48:25
  */
 /* jshint esversion: 6 */
 import { createApp } from 'vue';
@@ -19,7 +19,6 @@ import * as echarts from 'echarts';
 //顶部页面加载条
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-
 const app = createApp(App);
 app.user=echarts;
 app.use(ElementPlus);
