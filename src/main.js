@@ -4,7 +4,7 @@
  * @Author: GuoYaBing
  * @Date: 2021-09-24 10:00:17
  * @LastEditors: YaBing
- * @LastEditTime: 2023-04-10 16:48:25
+ * @LastEditTime: 2023-04-25 11:25:00
  */
 /* jshint esversion: 6 */
 import { createApp } from 'vue';
@@ -16,6 +16,7 @@ import router from "/@/router/router";// 引入router
 import '/@/mock/index.js';//mock数据
 import App from '/@/App.vue';
 import * as echarts from 'echarts';
+import vuetyped from 'vue3typed' //打字机
 //顶部页面加载条
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -24,6 +25,7 @@ app.user=echarts;
 app.use(ElementPlus);
 app.use(router);
 app.use(store);
+app.use(vuetyped);
 app.mount('#app');
 
 NProgress.configure({

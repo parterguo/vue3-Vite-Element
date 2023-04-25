@@ -79,12 +79,14 @@ export default {
           {index:"/clipboard",title:'粘贴板',},
           {index:"/backtop",title:'表格'},
           {index:"/wangeditor",title:'富文本编辑器'},
+          {index:"/vuetyped",title:'打字机'},
+          {index:"/test",title:'测试'},
         ],
       },
       // {
       //   icon: "el-icon-document",
-      //   index: "/404",
-      //   title: "404页面",
+      //   index: "/three",
+      //   title: "threeJs",
       // },
     ];
 

@@ -3,8 +3,8 @@
  * @version: 
  * @Author: GuoYaBing
  * @Date: 2021-09-27 13:33:15
- * @LastEditors: GuoYaBing
- * @LastEditTime: 2021-11-03 14:02:53
+ * @LastEditors: YaBing
+ * @LastEditTime: 2023-04-13 10:08:26
 -->
 <template>
   <div class="echarts-common">

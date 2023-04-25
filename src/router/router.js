@@ -3,8 +3,8 @@
  * @version: 
  * @Author: GuoYaBing
  * @Date: 2021-09-24 10:20:17
- * @LastEditors: GuoYaBing
- * @LastEditTime: 2022-03-29 17:48:14
+ * @LastEditors: YaBing
+ * @LastEditTime: 2023-04-25 11:19:59
  */
 import {createRouter, createWebHashHistory} from "vue-router";
 import Home from "/@/views/home/index.vue";
@@ -74,8 +74,29 @@ const routes = [
             },
             component: () => import ('/@/views/dshboard/dashboard/echarts/test.vue')
         },
+        {
+            path: '/vuetyped',
+            name: 'vuetyped',
+            meta: {
+                title: '打字机'
+            },
+            component: () => import ('/@/views/component/vuetyped/index.vue')
+        },
+        
+      
         ]
-    }, {
+    },
+    // {
+    //     path: '/three',
+    //     name: 'three',
+    //     meta: {
+    //         title: 'three学习'
+    //     },
+    //     component: () => import ('/@/views/component/three/index.vue')
+    // },
+    
+    
+    {
         path: "/login",
         name: "Login",
         meta: {

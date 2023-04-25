@@ -36,8 +36,8 @@
               type="primary"
               @click="loginHandle('ruleForm')"
               round
-              class="login-btn"
-              ><span class="login-world">登录</span></el-button
+              class="login-btn mdui-ripple"
+              ><span class="login-world ">登录</span></el-button
             >
           </el-form-item>
         </el-form>
