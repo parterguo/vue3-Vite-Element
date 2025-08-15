@@ -3,8 +3,8 @@
  * @version: 
  * @Author: GuoYaBing
  * @Date: 2021-09-24 10:20:17
- * @LastEditors: YaBing
- * @LastEditTime: 2023-04-25 11:19:59
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2025-08-13 14:34:10
  */
 import {createRouter, createWebHashHistory} from "vue-router";
 import Home from "/@/views/home/index.vue";
@@ -43,6 +43,22 @@ const routes = [
                 component: () => import ('/@/views/component/Backtop/index.vue')
             },
             {
+                path: '/user',
+                name: 'user',
+                meta: {
+                    title: '客户'
+                },
+                component: () => import ('/@/views/component/user/index.vue')
+            },
+            {
+                path: '/user1',
+                name: 'user1',
+                meta: {
+                    title: '客服'
+                },
+                component: () => import ('/@/views/component/user/admin.vue')
+            },
+            {
               path: '/wangeditor',
               name: 'wangeditor',
               meta: {
@@ -50,14 +66,7 @@ const routes = [
               },
               component: () => import ('/@/views/component/wangeditor/index.vue')
           },
-          {
-            path: '/user',
-            name: 'user',
-            meta: {
-                title: 'websoket聊天室'
-            },
-            component: () => import ('/@/views/component/user/index.vue')
-        },
+       
           {
             path: '/test',
             name: 'test',
@@ -66,14 +75,14 @@ const routes = [
             },
             component: () => import ('/@/views/component/test/setup.vue')
         },
-        {
-            path: '/echarts',
-            name: 'echarts',
-            meta: {
-                title: '八卦图表'
-            },
-            component: () => import ('/@/views/dshboard/dashboard/echarts/test.vue')
-        },
+        // {
+        //     path: '/echarts',
+        //     name: 'echarts',
+        //     meta: {
+        //         title: '八卦图表'
+        //     },
+        //     component: () => import ('/@/views/dshboard/dashboard/echarts/test.vue')
+        // },
         {
             path: '/vuetyped',
             name: 'vuetyped',

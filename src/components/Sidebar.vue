@@ -80,14 +80,18 @@ export default {
           {index:"/backtop",title:'表格'},
           {index:"/wangeditor",title:'富文本编辑器'},
           {index:"/vuetyped",title:'打字机'},
-          {index:"/test",title:'测试'},
+          {index:"/test",title:'测试'}
         ],
       },
-      // {
-      //   icon: "el-icon-document",
-      //   index: "/three",
-      //   title: "threeJs",
-      // },
+      {
+        icon: "el-icon-document",
+        index: "/three",
+        title: "websoket聊天室",
+        subs:[
+          {index:"/user",title:'用户端'},
+          {index:"/user1",title:'客服端'},
+        ],
+      },
     ];
 
     const route = useRoute();

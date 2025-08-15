@@ -127,23 +127,34 @@ export default {
   overflow: hidden;
   background-size: cover;
   background-attachment: fixed;
-  background: url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0383c2255cc6acf32f8755e66394003.jpg&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1635059786&t=157e19880ed74b7c62f0632cb12ea01c")
-    no-repeat;
+  background: url("https://pic4.zhimg.com/v2-e047e231b85dc0dbcf3734a536c8e4eb_1440w.jpg") center no-repeat;
   background-size: cover;
+}
+.login::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.5); /* 你可以调透明度 */
+  backdrop-filter: blur(20px); /* 玻璃模糊效果 */
+  -webkit-backdrop-filter: blur(20px);
+  pointer-events: none; /* 不阻止鼠标事件 */
+  z-index: 0;
 }
 .ib {
   display: inline-block;
   vertical-align: middle;
 }
 .container-box {
+  position: relative;
+  z-index: 1;
   width: 1105px;
   height: 700px;
-  position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translate(-50%, -50%);
   display: flex;
 }
+
 .left {
   background: url("http://wangfan.store/docs/img/login-bg.d9b2f0b8.png")
     no-repeat;
