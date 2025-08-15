@@ -11,7 +11,8 @@
 ## Project setup
 
 ```
-npm install
+npm install /yarn install --ignore-engines
+
 ```
 
 ```
@@ -37,3 +38,4 @@ npm run lint
 ```
 
 ### Customize configuration
+
